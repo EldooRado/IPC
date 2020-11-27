@@ -35,7 +35,6 @@ std::string GetLastErrorAsString()
 	return message;
 }
 
-
 BOOL createFileMappingNameFromHash(CHAR* hash, size_t sizeOfHash, CHAR* sharedFileNameBuffer)
 {
 	CHAR prefix[] = "Global\\";
@@ -57,6 +56,7 @@ VOID unmapSharedFile(HANDLE hMapFile, LPWSTR pBuf)
 
 	::CloseHandle(hMapFile);
 }
+
 BOOL mapSharedFile(HANDLE &hMapFile, LPWSTR &pBuf, LPCSTR sharedObjectName)
 {	
 	hMapFile = ::CreateFileMappingA(
@@ -205,7 +205,7 @@ DWORD injectDll(HANDLE hProcess, LPWSTR lpLibPath, size_t libPathSize)
 
 	if (hThread == NULL)
 	{
-		std::cerr << "Error. Can't createRemoteThread. Code: " << ::GetLastErrorAsString() << std::endl;
+		std::cerr << "Error. Can't createRemoteThread. Code: " << GetLastErrorAsString() << std::endl;
 		return NULL;
 	}
 	
